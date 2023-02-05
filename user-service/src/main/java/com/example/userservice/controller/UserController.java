@@ -62,7 +62,7 @@ public class UserController {
      * @param response
      * @return
      */
-    @GetMapping("/welcome")
+    @GetMapping("/user-service/welcome")
     @Timed(value="users.welcome", longTask = true)
     public String welcome(HttpServletRequest request, HttpServletResponse response) {
 //        Cookie[] cookies = request.getCookies();
