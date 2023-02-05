@@ -31,11 +31,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers("/users/**").permitAll();
 
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
-        http.authorizeRequests().antMatchers("/health_check/**").permitAll();
-        http.authorizeRequests().antMatchers("/**")
-                .hasIpAddress(env.getProperty("gateway.ip")) // <- IP 변경
-                .and()
-                .addFilter(getAuthenticationFilter());
+        http.authorizeRequests().antMatchers("/user-service/health_check/**").permitAll();
+//        http.authorizeRequests().antMatchers("/**")
+//                .hasIpAddress(env.getProperty("gateway.ip")) // <- IP 변경
+//                .and()
+//                .addFilter(getAuthenticationFilter());
 
 //        http.authorizeRequests().antMatchers("/users")
 //                .hasIpAddress(env.getProperty("gateway.ip")) // <- IP 변경

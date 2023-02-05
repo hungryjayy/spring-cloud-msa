@@ -44,7 +44,7 @@ public class UserController {
      * 작동 상태 확인
      * @return
      */
-    @GetMapping("/health_check")
+    @GetMapping("/user-service/health_check")
     @Timed(value="users.status", longTask = true)
     public String status() {
         return String.format("It's Working in User Service"
