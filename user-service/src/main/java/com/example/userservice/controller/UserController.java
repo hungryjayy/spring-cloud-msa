@@ -40,6 +40,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * 작동 상태 확인
+     * @return
+     */
     @GetMapping("/health_check")
     @Timed(value="users.status", longTask = true)
     public String status() {
@@ -52,6 +56,12 @@ public class UserController {
                 + ", token expiration time=" + env.getProperty("token.expiration_time"));
     }
 
+    /**
+     * 환영 메시지
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/welcome")
     @Timed(value="users.welcome", longTask = true)
     public String welcome(HttpServletRequest request, HttpServletResponse response) {
@@ -68,6 +78,11 @@ public class UserController {
         return greeting.getMessage();
     }
 
+    /**
+     * 사용자 정보 등록
+     * @param user
+     * @return
+     */
     @PostMapping("/users")
     public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user) {
         ModelMapper mapper = new ModelMapper();
@@ -81,6 +96,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 
+    /**
+     * 전체 사용자 조회
+     * @return
+     */
     @GetMapping("/users")
     public ResponseEntity<List<ResponseUser>> getUsers() {
         Iterable<UserEntity> userList = userService.getUserByAll();
@@ -93,6 +112,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    /**
+     * 사용자 정보, 주문 내역 조회
+     * @param userId
+     * @return
+     */
     @GetMapping("/users/{userId}")
     public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") String userId) {
         UserDto userDto = userService.getUserByUserId(userId);
