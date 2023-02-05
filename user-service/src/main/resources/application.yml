@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 60039
 #  port: ${random.int(50000,50001)}
 #  address: 127.0.0.1
 
