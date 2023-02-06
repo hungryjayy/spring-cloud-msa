@@ -6,6 +6,7 @@ import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
+import com.google.common.collect.Lists;
 import io.micrometer.core.annotation.Timed;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user-service")
@@ -106,12 +108,9 @@ public class UserController {
      */
     @GetMapping("/users")
     public ResponseEntity<List<ResponseUser>> getUsers() {
-        Iterable<UserEntity> userList = userService.getUserByAll();
-
-        List<ResponseUser> result = new ArrayList<>();
-        userList.forEach(v -> {
-            result.add(new ModelMapper().map(v, ResponseUser.class));
-        });
+        List<ResponseUser> result = Lists.newArrayList(userService.getUserByAll()).stream()
+                .map(it -> new ModelMapper().map(it, ResponseUser.class))
+                .collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
