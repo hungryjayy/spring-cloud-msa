@@ -27,12 +27,20 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
 
+    /**
+     * 헬스 체크
+     * @return
+     */
     @GetMapping("/health_check")
     public String status() {
         return String.format("It's Working in Catalog Service on PORT %s",
                 env.getProperty("local.server.port"));
     }
 
+    /**
+     * 전체 카탈로그 조회
+     * @return
+     */
     @GetMapping("/catalogs")
     public ResponseEntity<List<ResponseCatalog>> getCatalogs() {
         Iterable<CatalogEntity> catalogList = catalogService.getAllCatalogs();
