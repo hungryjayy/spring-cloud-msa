@@ -7,22 +7,22 @@ import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
 import io.micrometer.core.annotation.Timed;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -42,10 +42,11 @@ public class UserController {
 
     /**
      * 작동 상태 확인
+     *
      * @return
      */
     @GetMapping("/health_check")
-    @Timed(value="users.status", longTask = true)
+    @Timed(value = "users.status", longTask = true)
     public String status() {
         return String.format("It's Working in User Service"
                 + ", port(local.server.port)=" + env.getProperty("local.server.port")
@@ -58,12 +59,13 @@ public class UserController {
 
     /**
      * 환영 메시지
+     *
      * @param request
      * @param response
      * @return
      */
     @GetMapping("/welcome")
-    @Timed(value="users.welcome", longTask = true)
+    @Timed(value = "users.welcome", longTask = true)
     public String welcome(HttpServletRequest request, HttpServletResponse response) {
 //        Cookie[] cookies = request.getCookies();
 //        if (cookies != null) {
@@ -80,6 +82,7 @@ public class UserController {
 
     /**
      * 사용자 정보 등록
+     *
      * @param user
      * @return
      */
@@ -98,6 +101,7 @@ public class UserController {
 
     /**
      * 전체 사용자 조회
+     *
      * @return
      */
     @GetMapping("/users")
@@ -114,6 +118,7 @@ public class UserController {
 
     /**
      * 사용자 정보, 주문 내역 조회
+     *
      * @param userId
      * @return
      */
