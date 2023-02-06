@@ -89,8 +89,9 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserByUserId(String userId) {
         UserEntity userEntity = userRepository.findByUserId(userId);
 
-        if (userEntity == null)
+        if (userEntity == null) {
             throw new UsernameNotFoundException("User not found");
+        }
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
@@ -113,7 +114,11 @@ public class UserServiceImpl implements UserService {
 //        }
 
         /* ErrorDecoder */
-        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
+
+        List<ResponseOrder> ordersList = new ArrayList<>();
+
+        // order 서비스 개발 이후 오픈
+//        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
 //        log.info("Before call orders microservice");
 //        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
 //        List<ResponseOrder> ordersList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),

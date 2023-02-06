@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
     private Environment env;
     private UserService userService;
@@ -44,7 +44,7 @@ public class UserController {
      * 작동 상태 확인
      * @return
      */
-    @GetMapping("/user-service/health_check")
+    @GetMapping("/health_check")
     @Timed(value="users.status", longTask = true)
     public String status() {
         return String.format("It's Working in User Service"
@@ -62,7 +62,7 @@ public class UserController {
      * @param response
      * @return
      */
-    @GetMapping("/user-service/welcome")
+    @GetMapping("/welcome")
     @Timed(value="users.welcome", longTask = true)
     public String welcome(HttpServletRequest request, HttpServletResponse response) {
 //        Cookie[] cookies = request.getCookies();
